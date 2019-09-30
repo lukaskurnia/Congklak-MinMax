@@ -1,0 +1,57 @@
+#:import MyCongklakDisplay display.MyCongklakDisplay
+
+<MyCongklakDisplay>:
+	id: CongklakDisplay
+	startLay : startlay
+	orientation: 'horizontal'
+	BoxLayout:
+		id: startlay
+		titleLbl : title
+		mvpBtn : MvPbtn
+		rvpBtn : RvPbtn
+		mvrBtn : MvRbtn
+		modeLbl : modelbl
+		orientation :'vertical'
+		background_color: (1,1,1,1)
+		padding: 10
+        spacing: 10
+		Label:
+			id : title
+			text : '[b][color=#d98f86]Congklak[/color][/b]'
+			font_size : 50
+			markup : True
+			size_hint: (1, 0.75)
+			pos_hint: {'x': 0}
+		Label:
+			id : modelbl
+			text : '[b][color=#d98f86]Select mode to play:[/color][/b]'
+			font_size : 20
+			markup : True
+			size_hint: (1, 0.25)
+			pos_hint: {'x': 0}
+		Button:
+			id: MvPbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Minimax vs Player"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : CongklakDisplay.start("MvP")
+		Button:
+			id: RvPbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Random vs Player"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : CongklakDisplay.start("RvP")
+		Button:
+			id: MvRbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Minimax vs Random"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : CongklakDisplay.start("MvR")
+
+                
