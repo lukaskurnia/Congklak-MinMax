@@ -4,18 +4,65 @@
 
 PLAYER_NORTH = 1
 PLAYER_SOUTH = 0
-
-def initBoard():
-    board = [7,7,7,7,7,7,7,0,7,7,7,7,7,7,7,0]
-    return board
-
-def printBoard(board):
-    print('    _________________________________')
-    print('    |',board[8],'|',board[9],'|',board[10],'|',board[11],'|',board[12],'|',board[13],'|',board[14],'|',board[15],'|')
-    print(' ___|___|___|___|___|___|___|___|___|')
-    print('|',board[7],'|',board[6],'|',board[5],'|',board[4],'|',board[3],'|',board[2],'|',board[1],'|',board[0],'|')
-    print('|___|___|___|___|___|___|___|___|')
+SOUTH_STOREHOUSE = 7
+NORTH_STOREHOUSE = 15
 
 
-state = initBoard()
-printBoard(state)
+class Board:
+    #Inisialisasi papan congklak
+    def __init__(self):
+        self.board = [0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,0]
+
+    #Menampilkan papan congklak
+    def printBoard(self):
+        print('    _________________________________')
+        print('    |',self.board[8],'|',self.board[9],'|',self.board[10],'|',self.board[11],'|',self.board[12],'|',self.board[13],'|',self.board[14],'|',self.board[15],'|')
+        print(' ___|___|___|___|___|___|___|___|___|')
+        print('|',self.board[7],'|',self.board[6],'|',self.board[5],'|',self.board[4],'|',self.board[3],'|',self.board[2],'|',self.board[1],'|',self.board[0],'|')
+        print('|___|___|___|___|___|___|___|___|')
+
+    #Mengecek house kosong atau tidak
+    def isEmptyHouse(self,index):
+        return self.board[index]==0
+
+    #Mengembalikan house lawan yang berada di seberang 
+    def getOpponentIndex(self, currentIndex):
+        return (14 - currentIndex)
+
+
+    def getSouthStoreHouse(self):
+        return self.board[SOUTH_STOREHOUSE]
+
+    def getNorthStoreHouse(self):
+        return self.board[NORTH_STOREHOUSE]
+
+    def addShell(self,index,shell):
+        self.board[index] = self.board[index] + shell
+
+    def getShell(self,index):
+        temp = self.board[index]
+        self.board[index] = 0
+        return temp
+
+    def checkAllSouthHouseEmpty(self):
+        for i in range(0,7):
+            if(not(self.isEmptyHouse(i))):
+                return False
+        return True
+
+    def checkAllNorthHouseEmpty(self):
+        for i in range(8,15):
+            if(not(self.isEmptyHouse(i))):
+                return False
+        return True
+
+    def checkAllHouseEmpty(self):
+        return self.checkAllNorthHouseEmpty() and self.checkAllSouthHouseEmpty()
+
+
+
+# state = Board()
+# state.printBoard();
+# print(state.checkAllSouthHouseEmpty())
+# print(state.checkAllNorthHouseEmpty())
+# print(state.checkAllHouseEmpty())
