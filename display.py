@@ -85,12 +85,16 @@ class MyCongklakDisplay(FloatLayout):
         self.boardLay.turnLbl.text = _text +  " Turn"
 
     def set_first_turn(self, _turn):
+        self.Turn = _turn
         self.boardLay.remove_widget(self.boardLay.turnLay)
         self.set_turn_lbl(_turn)
-        self.play()
+        self.initiate_play()
 
-    def play(self):
+    def initiate_play(self):
+        print(self.Mode)
+        print(self.Turn == m.NORTH_TURN)
         if ((self.Mode == "MvP" or self.Mode == "MvR") and self.Turn == m.NORTH_TURN):
+            print("bot turn")
             Clock.schedule_once(self.player_2_move, 1)
         elif (self.Mode == "MvR" and self.Turn == m.SOUTH_TURN):
             Clock.schedule_once(self.player_1_bot_move, 1)
