@@ -5,35 +5,48 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.factory import Factory
+import board as b
 
 class MyCongklakDisplay(FloatLayout):
-    seed_y = [-0.15, 0.15]
-    seed_x = [0.3,0.2,0.1,0,-0.1,-0.2,-0.3]
+    Board = b.Board()
+    mode = ""
 
-    def start(self, mode):
+    def start(self, _mode):
         self.remove_start_screen()
 
-        if (mode == "MvP"):
+        self.mode = _mode
+        if (self.mode == "MvP"):
             _text = ("Bot Minimax vs Player")
-        elif (mode == "RvP"):
+        elif (self.mode == "RvP"):
             _text = ("Bot Random vs Player")
-        else: #mode=="MvR"
+        else: #self.mode=="MvR"
             _text = ("Bot Minimax vs Bot Random")
         
         self.boardLay.modeLbl.text = _text
+        self.draw_board()
     
     def remove_start_screen(self):
         self.remove_widget(self.startLay)
         self.remove_widget(self.backImg)
+
+    def draw_board(self):
+        i = 0
+        for hole in self.Board.board:
+            self.set_hole_lbl(i, hole)
+            i += 1
 
     def set_hole_lbl(self, hole_id, number):
         self.ids.get(self.get_lbl_id(hole_id)).text = str(number)
 
     def get_lbl_id(self, hole_id):       
         return "_" + str(hole_id)
+
+    def player_move(self, hole_id):
+        print(hole_id)
+    
+    def test(self):
+        print("AA")
 
 class CongklakApp(App):
     def build(self):
