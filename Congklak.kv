@@ -17,6 +17,8 @@
 		player1Lbl : player1lbl
 		player2Lbl : player2lbl
 		turnLay : turnlay
+		diffLay : difflay
+		diffImg : diffimg
 		Image:
 			source : 'Images/board.png'
 			size_hint: (1,1)
@@ -182,7 +184,6 @@
 				background_color: (0,0,0,0.95)
 				size_hint: None, None
 				on_press: CongklakDisplay.set_first_turn(0)
-
 			Button:
 				id: chooseplyr2btn
 				pos: 125,280
@@ -197,6 +198,46 @@
 				font_size: 50
 				color: (0,0,0,1)
 				text: "Who plays first?"
+
+		Image:
+			id : diffimg
+			source : 'Images/wood5.jpg'
+			allow_stretch : True
+		FloatLayout:
+			id: difflay
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 0.5
+				Rectangle:
+					pos: 100,50
+            		size: 600,500
+			Button:
+				id: easybtn
+				pos: 125,90
+				size: 550,150
+				text: "Hard"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: 
+					CongklakDisplay.set_difficulty(6)
+					CongklakDisplay.remove_difficulty_lay()
+			Button:
+				id: hardbtn
+				pos: 125,280
+				size: 550,150
+				text: "Easy"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: 
+					CongklakDisplay.set_difficulty(1)
+					CongklakDisplay.remove_difficulty_lay()
+			Label:
+				pos: 0, 200
+				font_size: 50
+				color: (0,0,0,1)
+				text: "Minimax Bot Difficulty"
 
 	Image:
 		id : backimg

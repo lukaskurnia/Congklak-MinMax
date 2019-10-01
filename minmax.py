@@ -15,13 +15,14 @@ def maximum(state, depth, my_turn, alpha, beta, is_prune):
         init = 8
     max_value = -999
     for i in range (init, init+7):
-        new_state, next_turn = mv.move(state, my_turn, i)
-        # new_state.printBoard()
-        score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, my_turn)
-        max_value = max(max_value, score)
-        alpha = max(alpha, score)
-        if is_prune and beta <= alpha:
-            break
+        if state.board[i] != 0:
+            new_state, next_turn = mv.move(state, my_turn, i)
+            # new_state.printBoard()
+            score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, my_turn)
+            max_value = max(max_value, score)
+            alpha = max(alpha, score)
+            if is_prune and beta <= alpha:
+                break
     return max_value
 
 def minimum(state, depth, my_turn, alpha, beta, is_prune):
@@ -33,13 +34,14 @@ def minimum(state, depth, my_turn, alpha, beta, is_prune):
 
     min_value = 999
     for i in range (init, init+7):
-        new_state, next_turn =  mv.move(state, mv.nextTurn(my_turn), i)
-        # new_state.printBoard()
-        score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, mv.nextTurn(my_turn))
-        min_value = min(min_value, score)
-        beta = min(beta, min_value)
-        if is_prune and beta <= alpha:
-            break
+        if state.board[i] != 0:
+            new_state, next_turn =  mv.move(state, mv.nextTurn(my_turn), i)
+            # new_state.printBoard()
+            score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, mv.nextTurn(my_turn))
+            min_value = min(min_value, score)
+            beta = min(beta, min_value)
+            if is_prune and beta <= alpha:
+                break
     return min_value
 
 def minimax(state, current_turn, depth, my_turn, alpha, beta, parent_turn):
@@ -62,17 +64,18 @@ def best_move (state, turn, depth):
     if idx == mv.INVALID_INDEX:
         return idx
 
-    max_value = -999
+    max_value = -9999
     if turn == mv.SOUTH_TURN:
         init = 0
     else:
         init = 8
     for i in range (init, init+7):
-        next_state, next_turn = mv.move(state, turn, i)
-        value = minimax(next_state, next_turn, depth-1, turn, -999, 999, turn)
-        if max_value < value:
-            max_value = value
-            idx = i
+        if state.board[i] != 0:
+            next_state, next_turn = mv.move(state, turn, i)
+            value = minimax(next_state, next_turn, depth-1, turn, -999, 999, turn)
+            if max_value <= value:
+                max_value = value
+                idx = i
     return idx
 
 

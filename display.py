@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
+from kivy.uix.widget import Canvas
 import board as b
 import move as m
 import randombot
@@ -17,7 +18,7 @@ class MyCongklakDisplay(FloatLayout):
     Board = b.Board()
     Mode = ""
     Turn = m.SOUTH_TURN
-    Difficulty = 5
+    Difficulty = 2
 
     def init(self, _mode):
         self.remove_start_screen()
@@ -27,6 +28,8 @@ class MyCongklakDisplay(FloatLayout):
         self.set_info_lbl()
         self.draw_board()
 
+        if (self.Mode == "RvP"):
+            self.remove_difficulty_lay()
     
     def remove_start_screen(self):
         self.remove_widget(self.startLay)
@@ -107,7 +110,6 @@ class MyCongklakDisplay(FloatLayout):
                 self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
             
         self.set_turn_lbl(self.Turn)
-        # self.Board.printBoard()
         self.draw_board()
         if (m.winCondition(self.Board)):
             self.add_win_lay()
@@ -138,7 +140,6 @@ class MyCongklakDisplay(FloatLayout):
 
         print("Bot move: " + str(bot_move))
         self.Board, self.Turn = m.move(self.Board, m.NORTH_TURN, bot_move)
-        # self.Board.printBoard()
         self.set_turn_lbl(self.Turn)
         self.draw_board()
         
@@ -151,8 +152,28 @@ class MyCongklakDisplay(FloatLayout):
                 Clock.schedule_once(self.player_1_bot_move, 1)
 
     def add_win_lay(self):
+        if (self.Mode == "MvP" or self.Mode == "RvP"):
+            _south = "Player"
+            if (self.Mode == "MvP"):
+                _south = "Minimax Bot"
+            else:
+                _south = "Random Bot"
+        else: #Minimax vs Random
+            _south = "Minimax Bot"
+            _north = "Random Bot"
+
+        # if (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) > 0):
+        #     _text = "Minimax Bot "
+
         self.boardLay.add_widget( Label(text="WIN", font_size=50) )
         print("END GAME")
+    
+    def set_difficulty(self, depth):
+        self.Difficulty = depth
+
+    def remove_difficulty_lay(self):
+        self.boardLay.remove_widget(self.boardLay.diffImg)
+        self.boardLay.remove_widget(self.boardLay.diffLay)
 
 class CongklakApp(App):
     def build(self):
