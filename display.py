@@ -119,6 +119,10 @@ class MyCongklakDisplay(FloatLayout):
                 
             self.set_turn_lbl(self.Turn)
             self.draw_board()
+
+            print("ISALL HOUSE EMPTY?")
+            print(self.Board.checkAllHouseEmpty())
+
             if (self.Board.checkAllHouseEmpty()):
                 self.add_win_lay()
             else:
@@ -143,6 +147,10 @@ class MyCongklakDisplay(FloatLayout):
 
                 self.set_turn_lbl(self.Turn)
                 self.draw_board()
+
+                print("ISALL HOUSE EMPTY?")
+                print(self.Board.checkAllHouseEmpty())
+
                 if (self.Board.checkAllHouseEmpty()):
                     self.add_win_lay()
                 else:
@@ -170,6 +178,9 @@ class MyCongklakDisplay(FloatLayout):
             self.set_turn_lbl(self.Turn)
             self.draw_board()
             
+            print("ISALL HOUSE EMPTY?")
+            print(self.Board.checkAllHouseEmpty())
+
             if (self.Board.checkAllHouseEmpty()):
                 self.add_win_lay()
             else:
@@ -182,23 +193,30 @@ class MyCongklakDisplay(FloatLayout):
                     Clock.schedule_once(self.player_2_move, DELAY_TIME)
 
     def add_win_lay(self):
+        print("sesuatu 1")
         if (self.Mode == "MvP" or self.Mode == "RvP"):
+            print("sesuatu 2")
             _south = "Player"
             if (self.Mode == "MvP"):
                 _north = "Minimax Bot"
             else:
                 _north = "Random Bot"
         else: #Minimax vs Random
+            print("sesuatu 3")
             _south = "Minimax Bot"
             _north = "Random Bot"
 
         if (minimax.evaluation(self.Board, m.SOUTH_TURN) > 0):
+            print("sesuatu 4")
             _text = _south + " WINS"
         elif (minimax.evaluation(self.Board, m.SOUTH_TURN) < 0):
+            print("sesuatu 5")
             _text = _north + " WINS"
         else:
+            print("sesuatu 6")
             _text = "IT'S A TIE"
-        self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,DELAY_TIME)) )
+
+        self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,1)) )
     
     def set_difficulty(self, depth):
         self.Difficulty = depth
