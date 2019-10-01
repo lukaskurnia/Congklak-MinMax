@@ -115,7 +115,7 @@ class MyCongklakDisplay(FloatLayout):
                 
             self.set_turn_lbl(self.Turn)
             self.draw_board()
-            if (m.winCondition(self.Board)):
+            if (self.Board.checkAllHouseEmpty()):
                 self.add_win_lay()
             else:
                 if (self.Turn != m.SOUTH_TURN):
@@ -128,7 +128,7 @@ class MyCongklakDisplay(FloatLayout):
 
             self.set_turn_lbl(self.Turn)
             self.draw_board()
-            if (m.winCondition(self.Board)):
+            if (self.Board.checkAllHouseEmpty()):
                 self.add_win_lay()
             else:
                 if (self.Turn != m.SOUTH_TURN):
@@ -147,7 +147,7 @@ class MyCongklakDisplay(FloatLayout):
         self.set_turn_lbl(self.Turn)
         self.draw_board()
         
-        if (m.winCondition(self.Board)):
+        if (self.Board.checkAllHouseEmpty()):
             self.add_win_lay()
         else:
             if (self.Turn == m.NORTH_TURN):
