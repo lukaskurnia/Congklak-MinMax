@@ -82,11 +82,23 @@ class MyCongklakDisplay(FloatLayout):
         self.boardLay.remove_widget(self.boardLay.turnLay)
         self.set_turn_lbl(_turn)
 
-    def player_move(self, hole_id):
+    def player_1_move(self, hole_id):
         if ((self.mode == "MvP") or (self.mode == "RvP")):
             if (hole_id < 7):
                 self.Board, turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
+        self.set_turn_lbl(turn)
         self.draw_board()
+        if (m.winCondition(self.Board)):
+            self.add_win_lay()
+        else:
+            if (turn != m.SOUTH_TURN):
+                self.player_2_move()
+
+    def player_2_move(self):
+        print("player 2 move")
+    
+    def add_win_lay(self):
+        print("END GAME")
 
 class CongklakApp(App):
     def build(self):

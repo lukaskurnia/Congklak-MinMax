@@ -15,7 +15,7 @@ def shoot(Board,currentIndex,turn):
 #Mengembalikan state board setelah move dan giliran siapa setelah move dieksekusi
 def move(Board,turn,index):
     if(legalMove(Board,turn,index)):
-        loop = False;
+        loop = False
         currentIndex = index
         if(turn == SOUTH_TURN):
             remainingStep = Board.getShell(index)
@@ -49,7 +49,7 @@ def move(Board,turn,index):
                 currentIndex = currentIndex + 1
 
                 if(currentIndex ==16):
-                    currentIndex = 0;
+                    currentIndex = 0
 
                 if(currentIndex == 7):
                     loop = True
@@ -92,7 +92,7 @@ def legalMove(Board, turn, index):
         return not(Board.checkAllSouthHouseEmpty()) and not(Board.isEmptyHouse(index)) and Board.southSite(index)
 
     
-state = b.Board()
-move(state,SOUTH_TURN, 0)
-state.printBoard()
+# state = b.Board()
+# move(state,SOUTH_TURN, 0)
+# state.printBoard()
 
