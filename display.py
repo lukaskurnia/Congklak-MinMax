@@ -109,7 +109,7 @@ class MyCongklakDisplay(FloatLayout):
             self.Turn = b.NORTH_STOREHOUSE
             Clock.schedule_once(self.player_2_move, 1)
         else:
-            if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board[hole_id]!=0 ): #player move
+            if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board.board[hole_id]!=0 ): #player move
                 if (hole_id < 7):
                     self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
                 
