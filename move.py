@@ -77,8 +77,14 @@ def move(First_Board,turn,index):
 
         return Board,turn
     else:
-        print("Illegal move")
+        return Board, nextTurn(turn)
 
+
+def nextTurn(turn):
+    if turn == SOUTH_TURN:
+        return NORTH_TURN
+    else:
+        return SOUTH_TURN
 
 #Kondisi menang
 def winCondition (Board):
