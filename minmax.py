@@ -16,7 +16,7 @@ def maximum(state, depth, my_turn, alpha, beta, is_prune):
     max_value = -999
     for i in range (init, init+7):
         new_state, next_turn = mv.move(state, my_turn, i)
-        new_state.printBoard()
+        # new_state.printBoard()
         score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, my_turn)
         max_value = max(max_value, score)
         alpha = max(alpha, score)
@@ -34,7 +34,7 @@ def minimum(state, depth, my_turn, alpha, beta, is_prune):
     min_value = 999
     for i in range (init, init+7):
         new_state, next_turn =  mv.move(state, mv.nextTurn(my_turn), i)
-        new_state.printBoard()
+        # new_state.printBoard()
         score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, mv.nextTurn(my_turn))
         min_value = min(min_value, score)
         beta = min(beta, min_value)
@@ -62,22 +62,21 @@ def best_move (state, turn, depth):
     if idx == mv.INVALID_INDEX:
         return idx
 
-    score = []
+    max_value = -999
     if turn == mv.SOUTH_TURN:
         init = 0
     else:
         init = 8
     for i in range (init, init+7):
-        print("****", i)
         next_state, next_turn = mv.move(state, turn, i)
-        score.append(minimax(next_state, next_turn, depth-1, turn, -999, 999, turn))
-    if (turn == mv.SOUTH_TURN):    
-        return score.index(max(score))
-    else:    
-        return score.index(min(score))+8
+        value = minimax(next_state, next_turn, depth-1, turn, -999, 999, turn)
+        if max_value < value:
+            max_value = value
+            idx = i
+    return idx
 
 
-my_board = b.Board()
-depth = 5
-steps = best_move(my_board, mv.SOUTH_TURN, depth)
-print(steps)
+# my_board = b.Board()
+# depth = 5
+# steps = best_move(my_board, mv.NORTH_TURN, depth)
+# print(steps)

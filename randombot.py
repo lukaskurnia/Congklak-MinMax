@@ -16,6 +16,6 @@ def random_move(board, turn):
                 idx = random.randint(0,7)
     return idx
 
-bo = b.Board()
-print(random_move(bo,m.SOUTH_TURN))
+# bo = b.Board()
+# print(random_move(bo,m.SOUTH_TURN))
     
