@@ -2,8 +2,110 @@
 
 <MyCongklakDisplay>:
 	id: CongklakDisplay
+	boardLay : boardlay
 	startLay : startlay
+	backImg : backimg
 	orientation: 'horizontal'
+	Image:
+		id : tinyImg
+		source : 'Images/wood5.jpg'
+		allow_stretch : True
+	FloatLayout:
+		id : boardlay
+		modeLbl : modelbl
+
+		Label:
+			id: modelbl
+			text: ""
+			font_size: 50
+			pos_hint: {"y":0.4}
+		Image:
+			source : 'Images/board.png'
+			size_hint: (1,1)
+		Label:
+			id: _0
+			pos_hint:{"x":0.3, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _1
+			pos_hint:{"x":0.2, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _2
+			pos_hint:{"x":0.1, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _3
+			pos_hint:{"x":0, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _4
+			pos_hint:{"x":-0.1, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _5
+			pos_hint:{"x":-0.2, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _6
+			pos_hint:{"x":-0.3, "y":-0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _7
+			pos_hint:{"x":-0.42}
+			font_size: 40
+			text: '0'
+		Label:
+			id: _8
+			pos_hint:{"x":-0.3, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _9
+			pos_hint:{"x":-0.2, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _10
+			pos_hint:{"x":-0.1, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _11
+			pos_hint:{"x":0, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _12
+			pos_hint:{"x":0.1, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _13
+			pos_hint:{"x":0.2, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _14
+			pos_hint:{"x":0.3, "y":0.15}
+			font_size: 40
+			text: '7'
+		Label:
+			id: _15
+			pos_hint:{"x":0.42}
+			font_size: 40
+			text: '0'
+	Image:
+		id : backimg
+		source : 'Images/wood5.jpg'
+		allow_stretch : True
 	BoxLayout:
 		id: startlay
 		titleLbl : title
@@ -17,14 +119,14 @@
         spacing: 10
 		Label:
 			id : title
-			text : '[b][color=#d98f86]Congklak[/color][/b]'
+			text : 'Congklak'
 			font_size : 50
 			markup : True
 			size_hint: (1, 0.75)
 			pos_hint: {'x': 0}
 		Label:
 			id : modelbl
-			text : '[b][color=#d98f86]Select mode to play:[/color][/b]'
+			text : 'Select mode to play:'
 			font_size : 20
 			markup : True
 			size_hint: (1, 0.25)
