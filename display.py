@@ -159,9 +159,9 @@ class MyCongklakDisplay(FloatLayout):
         if (self.Mode == "MvP" or self.Mode == "RvP"):
             _south = "Player"
             if (self.Mode == "MvP"):
-                _south = "Minimax Bot"
+                _north = "Minimax Bot"
             else:
-                _south = "Random Bot"
+                _north = "Random Bot"
         else: #Minimax vs Random
             _south = "Minimax Bot"
             _north = "Random Bot"
@@ -172,7 +172,6 @@ class MyCongklakDisplay(FloatLayout):
             _text = _north + " WINS"
         else:
             _text = "IT'S A TIE"
-
         self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,1)) )
     
     def set_difficulty(self, depth):
