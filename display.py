@@ -106,6 +106,9 @@ class MyCongklakDisplay(FloatLayout):
             Clock.schedule_once(self.player_2_move, DELAY_TIME)
 
     def player_1_move(self, hole_id):
+        if (self.Board.checkAllHouseEmpty()):
+            self.add_win_lay()
+
         if (self.Board.checkAllSouthHouseEmpty()):
             self.Turn = m.NORTH_TURN
             Clock.schedule_once(self.player_2_move, DELAY_TIME)
@@ -126,6 +129,9 @@ class MyCongklakDisplay(FloatLayout):
                     Clock.schedule_once(self.player_2_move, DELAY_TIME)
     
     def player_1_bot_move(self, dt):
+        if (self.Board.checkAllHouseEmpty()):
+            self.add_win_lay()
+
         if (self.Board.checkAllSouthHouseEmpty()):
             self.Turn = m.NORTH_TURN
             Clock.schedule_once(self.player_2_move, DELAY_TIME)
@@ -146,6 +152,9 @@ class MyCongklakDisplay(FloatLayout):
                         Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
 
     def player_2_move(self, dt):
+        if (self.Board.checkAllHouseEmpty()):
+            self.add_win_lay()
+
         if (self.Board.checkAllNorthHouseEmpty()):
             self.Turn = m.SOUTH_TURN
             if (self.Mode == "MvR"):
@@ -165,13 +174,10 @@ class MyCongklakDisplay(FloatLayout):
                 self.add_win_lay()
             else:
                 if (self.Turn == m.NORTH_TURN):
-                    print("a")
                     Clock.schedule_once(self.player_2_move, DELAY_TIME)
                 elif (self.Mode == "MvR"):
-                    print("b")
                     Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
                 elif (self.Mode == "MvP" and self.Board.checkAllSouthHouseEmpty()):
-                    print("c")
                     self.Turn = m.NORTH_TURN
                     Clock.schedule_once(self.player_2_move, DELAY_TIME)
 
