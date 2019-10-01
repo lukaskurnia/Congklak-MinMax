@@ -120,6 +120,9 @@ class MyCongklakDisplay(FloatLayout):
             else:
                 if (self.Turn != m.SOUTH_TURN):
                     Clock.schedule_once(self.player_2_move, 1)
+                elif (self.Board.checkAllSouthHouseEmpty()):
+                    self.Turn = m.NORTH_TURN
+                    Clock.schedule_once(self.player_2_move, 1)
     
     def player_1_bot_move(self, dt):
         if (self.Board.checkAllSouthHouseEmpty()):
