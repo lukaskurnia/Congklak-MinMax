@@ -93,7 +93,7 @@ class MyCongklakDisplay(FloatLayout):
     def initiate_play(self):
         print(self.Mode)
         print(self.Turn == m.NORTH_TURN)
-        if ((self.Mode == "MvP" or self.Mode == "MvR") and self.Turn == m.NORTH_TURN):
+        if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.NORTH_TURN):
             print("bot turn")
             Clock.schedule_once(self.player_2_move, 1)
         elif (self.Mode == "MvR" and self.Turn == m.SOUTH_TURN):
