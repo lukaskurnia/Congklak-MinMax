@@ -166,9 +166,9 @@ class MyCongklakDisplay(FloatLayout):
             _south = "Minimax Bot"
             _north = "Random Bot"
 
-        if (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) > 0):
+        if (minimax.evaluation(self.Board, b.SOUTH_TURN) > 0):
             _text = _south + " WINS"
-        elif (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) < 0):
+        elif (minimax.evaluation(self.Board, b.SOUTH_TURN) < 0):
             _text = _north + " WINS"
         else:
             _text = "IT'S A TIE"
