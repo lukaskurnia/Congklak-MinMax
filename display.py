@@ -26,6 +26,9 @@ class MyCongklakDisplay(FloatLayout):
     def start(self):
         self.set_info_lbl()
         self.draw_board()
+
+        if (self.Mode == "MvR"):
+            self.player_1_move(minimax.best_move(self.Board,self.Turn, self.Difficulty))
     
     def remove_start_screen(self):
         self.remove_widget(self.startLay)
@@ -91,6 +94,7 @@ class MyCongklakDisplay(FloatLayout):
         if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN): #player move
             if (hole_id < 7):
                 self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
+
         self.set_turn_lbl(self.Turn)
         self.Board.printBoard()
         self.draw_board()
@@ -103,7 +107,6 @@ class MyCongklakDisplay(FloatLayout):
                 self.player_1_move(minimax.best_move(self.Board,self.Turn, self.Difficulty))
 
     def player_2_move(self, dt):
-        print("A")
         if (self.Mode == "RvP" or self.Mode == "MvR"): #random bot
             bot_move = randombot.random_move(self.Board, self.Turn)
         else: #minimax bot
@@ -119,7 +122,7 @@ class MyCongklakDisplay(FloatLayout):
             self.add_win_lay()
         else:
             if (self.Turn == m.NORTH_TURN):
-                self.player_2_move()
+                Clock.schedule_once(self.player_2_move, 1)
 
     def add_win_lay(self):
         self.boardLay.add_widget( Label(text="WIN", font_size=50) )
