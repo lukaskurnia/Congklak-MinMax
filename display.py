@@ -98,11 +98,11 @@ class MyCongklakDisplay(FloatLayout):
             self.add_win_lay()
         else:
             if (self.Turn != m.SOUTH_TURN):
-                Clock.schedule_once(lambda dt: self.player_2_move)
+                Clock.schedule_once(self.player_2_move, 1)
             elif (self.Mode == "MvR"):
                 self.player_1_move(minimax.best_move(self.Board,self.Turn, self.Difficulty))
 
-    def player_2_move(self):
+    def player_2_move(self, dt):
         print("A")
         if (self.Mode == "RvP" or self.Mode == "MvR"): #random bot
             bot_move = randombot.random_move(self.Board, self.Turn)
