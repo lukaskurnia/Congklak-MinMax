@@ -105,7 +105,7 @@ class MyCongklakDisplay(FloatLayout):
             Clock.schedule_once(self.player_2_move, 1)
 
     def player_1_move(self, hole_id):
-        if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN): #player move
+        if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board[hole_id]!=0 ): #player move
             if (hole_id < 7):
                 self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
             
@@ -162,11 +162,14 @@ class MyCongklakDisplay(FloatLayout):
             _south = "Minimax Bot"
             _north = "Random Bot"
 
-        # if (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) > 0):
-        #     _text = "Minimax Bot "
+        if (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) > 0):
+            _text = _south + " WINS"
+        elif (minimax.evaluation(self.Board, b.SOUTH_STOREHOUSE) < 0):
+            _text = _north + " WINS"
+        else:
+            _text = "IT'S A TIE"
 
-        self.boardLay.add_widget( Label(text="WIN", font_size=50) )
-        print("END GAME")
+        self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,1)) )
     
     def set_difficulty(self, depth):
         self.Difficulty = depth

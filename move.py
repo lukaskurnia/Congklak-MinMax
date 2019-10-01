@@ -90,7 +90,7 @@ def nextTurn(turn):
 #Kondisi menang
 def winCondition (Board):
     if(Board.checkAllHouseEmpty()):
-        return Board.getSouthStoreHouse > Board.getNorthStoreHouse
+        return Board.getSouthStoreHouse() > Board.getNorthStoreHouse()
 
 #Legal move untuk South maupun north
 def legalMove(Board, turn, index):
