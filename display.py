@@ -13,8 +13,10 @@ import move as m
 import randombot
 import minmax as minimax
 
+DELAY_TIME = 0
 
 class MyCongklakDisplay(FloatLayout):
+    global DELAY_TIME
     Board = b.Board()
     Mode = ""
     Turn = m.SOUTH_TURN
@@ -97,16 +99,16 @@ class MyCongklakDisplay(FloatLayout):
         print(self.Mode)
         print(self.Turn == m.NORTH_TURN)
         if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.NORTH_TURN):
-            Clock.schedule_once(self.player_2_move, 1)
+            Clock.schedule_once(self.player_2_move, DELAY_TIME)
         elif (self.Mode == "MvR" and self.Turn == m.SOUTH_TURN):
-            Clock.schedule_once(self.player_1_bot_move, 1)
+            Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
         elif (self.Mode == "MvR" and self.Turn == m.NORTH_TURN):
-            Clock.schedule_once(self.player_2_move, 1)
+            Clock.schedule_once(self.player_2_move, DELAY_TIME)
 
     def player_1_move(self, hole_id):
         if (self.Board.checkAllSouthHouseEmpty()):
             self.Turn = m.NORTH_TURN
-            Clock.schedule_once(self.player_2_move, 1)
+            Clock.schedule_once(self.player_2_move, DELAY_TIME)
         else:
             if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board.board[hole_id]!=0 ): #player move
                 if (hole_id < 7):
@@ -118,19 +120,20 @@ class MyCongklakDisplay(FloatLayout):
                 self.add_win_lay()
             else:
                 if (self.Turn != m.SOUTH_TURN):
-                    Clock.schedule_once(self.player_2_move, 1)
+                    Clock.schedule_once(self.player_2_move, DELAY_TIME)
                 elif (self.Board.checkAllSouthHouseEmpty()):
                     self.Turn = m.NORTH_TURN
-                    Clock.schedule_once(self.player_2_move, 1)
+                    Clock.schedule_once(self.player_2_move, DELAY_TIME)
     
     def player_1_bot_move(self, dt):
         if (self.Board.checkAllSouthHouseEmpty()):
             self.Turn = m.NORTH_TURN
-            Clock.schedule_once(self.player_2_move, 1)
+            Clock.schedule_once(self.player_2_move, DELAY_TIME)
         else:
             if (self.Mode == "MvR"): #minimax bot
                 bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
                 self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, bot_move)
+                print("Bot Minimax move: " + str(bot_move))
 
                 self.set_turn_lbl(self.Turn)
                 self.draw_board()
@@ -138,15 +141,15 @@ class MyCongklakDisplay(FloatLayout):
                     self.add_win_lay()
                 else:
                     if (self.Turn != m.SOUTH_TURN):
-                        Clock.schedule_once(self.player_2_move, 1)
+                        Clock.schedule_once(self.player_2_move, DELAY_TIME)
                     else:
-                        Clock.schedule_once(self.player_1_bot_move, 1)
+                        Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
 
     def player_2_move(self, dt):
         if (self.Board.checkAllNorthHouseEmpty()):
             self.Turn = m.SOUTH_TURN
             if (self.Mode == "MvR"):
-                Clock.schedule_once(self.player_1_move, 1)
+                Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
         else:
             if (self.Mode == "RvP" or self.Mode == "MvR"): #random bot
                 bot_move = randombot.random_move(self.Board, self.Turn)
@@ -162,12 +165,15 @@ class MyCongklakDisplay(FloatLayout):
                 self.add_win_lay()
             else:
                 if (self.Turn == m.NORTH_TURN):
-                    Clock.schedule_once(self.player_2_move, 1)
+                    print("a")
+                    Clock.schedule_once(self.player_2_move, DELAY_TIME)
                 elif (self.Mode == "MvR"):
-                    Clock.schedule_once(self.player_1_bot_move, 1)
+                    print("b")
+                    Clock.schedule_once(self.player_1_bot_move, DELAY_TIME)
                 elif (self.Mode == "MvP" and self.Board.checkAllSouthHouseEmpty()):
+                    print("c")
                     self.Turn = m.NORTH_TURN
-                    Clock.schedule_once(self.player_2_move, 1)
+                    Clock.schedule_once(self.player_2_move, DELAY_TIME)
 
     def add_win_lay(self):
         if (self.Mode == "MvP" or self.Mode == "RvP"):
@@ -186,7 +192,7 @@ class MyCongklakDisplay(FloatLayout):
             _text = _north + " WINS"
         else:
             _text = "IT'S A TIE"
-        self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,1)) )
+        self.boardLay.add_widget( Label(text=_text, font_size=50, color=(0,0,0,DELAY_TIME)) )
     
     def set_difficulty(self, depth):
         self.Difficulty = depth
