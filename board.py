@@ -2,8 +2,6 @@
 #     8  9  10  11  12  13  14  15
 #  7  6  5  4    3   2   1   0  
 
-PLAYER_NORTH = 1
-PLAYER_SOUTH = 0
 SOUTH_STOREHOUSE = 7
 NORTH_STOREHOUSE = 15
 

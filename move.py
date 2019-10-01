@@ -92,5 +92,7 @@ def legalMove(Board, turn, index):
         return not(Board.checkAllSouthHouseEmpty()) and not(Board.isEmptyHouse(index)) and Board.southSite(index)
 
     
-
+state = b.Board()
+move(state,SOUTH_TURN, 0)
+state.printBoard()
 
