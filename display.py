@@ -97,7 +97,6 @@ class MyCongklakDisplay(FloatLayout):
         print(self.Mode)
         print(self.Turn == m.NORTH_TURN)
         if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.NORTH_TURN):
-            print("bot turn")
             Clock.schedule_once(self.player_2_move, 1)
         elif (self.Mode == "MvR" and self.Turn == m.SOUTH_TURN):
             Clock.schedule_once(self.player_1_bot_move, 1)
@@ -166,6 +165,8 @@ class MyCongklakDisplay(FloatLayout):
                     Clock.schedule_once(self.player_2_move, 1)
                 elif (self.Mode == "MvR"):
                     Clock.schedule_once(self.player_1_bot_move, 1)
+                elif (self.Mode == "MvP" and self.Board.checkAllSouthHouseEmpty()):
+                    Clock.schedule_once(self.player_2_move, 1)
 
     def add_win_lay(self):
         if (self.Mode == "MvP" or self.Mode == "RvP"):
