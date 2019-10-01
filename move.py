@@ -3,6 +3,7 @@ import copy
 
 NORTH_TURN = 1 #atas
 SOUTH_TURN = 0 #bawah
+INVALID_INDEX = -1
 
 #Tembak shell
 def shoot(Board,currentIndex,turn):
@@ -93,6 +94,9 @@ def winCondition (Board):
 
 #Legal move untuk South maupun north
 def legalMove(Board, turn, index):
+    if index == INVALID_INDEX:
+        return False
+        
     if(turn == NORTH_TURN):
         return not(Board.checkAllNorthHouseEmpty()) and not(Board.isEmptyHouse(index)) and Board.northSite(index)
   

@@ -52,6 +52,16 @@ def minimax(state, current_turn, depth, my_turn, alpha, beta, parent_turn):
         return minimum(state, depth, my_turn, alpha, beta, parent_turn != current_turn)
 
 def best_move (state, turn, depth):
+    idx = 0
+    if (turn == mv.NORTH_TURN):
+        if (state.checkAllNorthHouseEmpty()):
+            idx = mv.INVALID_INDEX
+    else:
+        if (state.checkAllSouthHouseEmpty()):
+            idx = mv.INVALID_INDEX
+    if idx == mv.INVALID_INDEX:
+        return idx
+
     score = []
     if turn == mv.SOUTH_TURN:
         init = 0
@@ -68,9 +78,6 @@ def best_move (state, turn, depth):
 
 
 my_board = b.Board()
-my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 0)
-my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 1)
-my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 3)
 depth = 5
 steps = best_move(my_board, mv.SOUTH_TURN, depth)
 print(steps)
