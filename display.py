@@ -105,17 +105,21 @@ class MyCongklakDisplay(FloatLayout):
             Clock.schedule_once(self.player_2_move, 1)
 
     def player_1_move(self, hole_id):
-        if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board[hole_id]!=0 ): #player move
-            if (hole_id < 7):
-                self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
-            
-        self.set_turn_lbl(self.Turn)
-        self.draw_board()
-        if (m.winCondition(self.Board)):
-            self.add_win_lay()
+        if (self.Board.checkAllSouthHouseEmpty()):
+            self.Turn = b.NORTH_STOREHOUSE
+            Clock.schedule_once(self.player_2_move, 1)
         else:
-            if (self.Turn != m.SOUTH_TURN):
-                Clock.schedule_once(self.player_2_move, 1)
+            if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board[hole_id]!=0 ): #player move
+                if (hole_id < 7):
+                    self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
+                
+            self.set_turn_lbl(self.Turn)
+            self.draw_board()
+            if (m.winCondition(self.Board)):
+                self.add_win_lay()
+            else:
+                if (self.Turn != m.SOUTH_TURN):
+                    Clock.schedule_once(self.player_2_move, 1)
     
     def player_1_bot_move(self, dt):
         if (self.Mode == "MvR"): #minimax bot
