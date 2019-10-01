@@ -8,7 +8,7 @@ def evaluation(state, my_turn):
         return state.getNorthStoreHouse()-state.getSouthStoreHouse()
 
 def maximum(state, depth, my_turn, alpha, beta, is_prune):
-    print("maksimum")
+    # print("maksimum")
     if my_turn == mv.SOUTH_TURN:
         init = 0
     else:
@@ -25,7 +25,7 @@ def maximum(state, depth, my_turn, alpha, beta, is_prune):
     return max_value
 
 def minimum(state, depth, my_turn, alpha, beta, is_prune):
-    print("minimum")
+    # print("minimum")
     if mv.nextTurn(my_turn) == mv.SOUTH_TURN:
         init = 0
     else:

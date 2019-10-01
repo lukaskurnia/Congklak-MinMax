@@ -98,8 +98,7 @@ class MyCongklakDisplay(FloatLayout):
             self.add_win_lay()
         else:
             if (self.Turn != m.SOUTH_TURN):
-                self.player_2_move()
-                # Clock.schedule_once(lambda dt: self.player_2_move, 0.1)
+                Clock.schedule_once(lambda dt: self.player_2_move)
             elif (self.Mode == "MvR"):
                 self.player_1_move(minimax.best_move(self.Board,self.Turn, self.Difficulty))
 
@@ -111,18 +110,16 @@ class MyCongklakDisplay(FloatLayout):
             bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
 
         print("Bot move: " + str(bot_move))
-        new_board, next_turn = m.move(self.Board, m.SOUTH_TURN, bot_move)
-        new_board.printBoard()
+        self.Board, self.Turn = m.move(self.Board, m.NORTH_TURN, bot_move)
+        self.Board.printBoard()
         self.set_turn_lbl(self.Turn)
         self.draw_board()
         
         if (m.winCondition(self.Board)):
             self.add_win_lay()
-        # else:
-        #     if (self.Turn != m.NORTH_TURN):
-        #         self.player_1_move()
-        #     else:
-        #         self.player_2_move()
+        else:
+            if (self.Turn == m.NORTH_TURN):
+                self.player_2_move()
 
     def add_win_lay(self):
         self.boardLay.add_widget( Label(text="WIN", font_size=50) )
