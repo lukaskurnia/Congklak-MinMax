@@ -1,4 +1,5 @@
-from display import *
+from display import CongklakApp
 
 if __name__ == "__main__":
-    CongklakApp().run()
+    app = CongklakApp(kv_file="Congklak.kv")
+    app.run()
