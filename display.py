@@ -106,7 +106,7 @@ class MyCongklakDisplay(FloatLayout):
 
     def player_1_move(self, hole_id):
         if (self.Board.checkAllSouthHouseEmpty()):
-            self.Turn = b.NORTH_STOREHOUSE
+            self.Turn = m.NORTH_TURN
             Clock.schedule_once(self.player_2_move, 1)
         else:
             if ((self.Mode == "MvP" or self.Mode == "RvP") and self.Turn == m.SOUTH_TURN and self.Board.board[hole_id]!=0 ): #player move
@@ -122,38 +122,47 @@ class MyCongklakDisplay(FloatLayout):
                     Clock.schedule_once(self.player_2_move, 1)
     
     def player_1_bot_move(self, dt):
-        if (self.Mode == "MvR"): #minimax bot
-            bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
-            self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, bot_move)
+        if (self.Board.checkAllSouthHouseEmpty()):
+            self.Turn = m.NORTH_TURN
+            Clock.schedule_once(self.player_2_move, 1)
+        else:
+            if (self.Mode == "MvR"): #minimax bot
+                bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
+                self.Board, self.Turn = m.move(self.Board, m.SOUTH_TURN, bot_move)
 
+                self.set_turn_lbl(self.Turn)
+                self.draw_board()
+                if (self.Board.checkAllHouseEmpty()):
+                    self.add_win_lay()
+                else:
+                    if (self.Turn != m.SOUTH_TURN):
+                        Clock.schedule_once(self.player_2_move, 1)
+                    else:
+                        Clock.schedule_once(self.player_1_bot_move, 1)
+
+    def player_2_move(self, dt):
+        if (self.Board.checkAllNorthHouseEmpty()):
+            self.Turn = m.SOUTH_TURN
+            if (self.Mode == "MvR"):
+                Clock.schedule_once(self.player_1_move, 1)
+        else:
+            if (self.Mode == "RvP" or self.Mode == "MvR"): #random bot
+                bot_move = randombot.random_move(self.Board, self.Turn)
+            else: #minimax bot
+                bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
+
+            print("Bot move: " + str(bot_move))
+            self.Board, self.Turn = m.move(self.Board, m.NORTH_TURN, bot_move)
             self.set_turn_lbl(self.Turn)
             self.draw_board()
+            
             if (self.Board.checkAllHouseEmpty()):
                 self.add_win_lay()
             else:
-                if (self.Turn != m.SOUTH_TURN):
+                if (self.Turn == m.NORTH_TURN):
                     Clock.schedule_once(self.player_2_move, 1)
-                else:
+                elif (self.Mode == "MvR"):
                     Clock.schedule_once(self.player_1_bot_move, 1)
-
-    def player_2_move(self, dt):
-        if (self.Mode == "RvP" or self.Mode == "MvR"): #random bot
-            bot_move = randombot.random_move(self.Board, self.Turn)
-        else: #minimax bot
-            bot_move = minimax.best_move(self.Board, self.Turn, self.Difficulty)
-
-        print("Bot move: " + str(bot_move))
-        self.Board, self.Turn = m.move(self.Board, m.NORTH_TURN, bot_move)
-        self.set_turn_lbl(self.Turn)
-        self.draw_board()
-        
-        if (self.Board.checkAllHouseEmpty()):
-            self.add_win_lay()
-        else:
-            if (self.Turn == m.NORTH_TURN):
-                Clock.schedule_once(self.player_2_move, 1)
-            elif (self.Mode == "MvR"):
-                Clock.schedule_once(self.player_1_bot_move, 1)
 
     def add_win_lay(self):
         if (self.Mode == "MvP" or self.Mode == "RvP"):
@@ -166,9 +175,9 @@ class MyCongklakDisplay(FloatLayout):
             _south = "Minimax Bot"
             _north = "Random Bot"
 
-        if (minimax.evaluation(self.Board, b.SOUTH_TURN) > 0):
+        if (minimax.evaluation(self.Board, m.SOUTH_TURN) > 0):
             _text = _south + " WINS"
-        elif (minimax.evaluation(self.Board, b.SOUTH_TURN) < 0):
+        elif (minimax.evaluation(self.Board, m.SOUTH_TURN) < 0):
             _text = _north + " WINS"
         else:
             _text = "IT'S A TIE"
