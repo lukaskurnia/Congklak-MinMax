@@ -12,16 +12,24 @@
 		allow_stretch : True
 	FloatLayout:
 		id : boardlay
-		modeLbl : modelbl
-
-		Label:
-			id: modelbl
-			text: ""
-			font_size: 50
-			pos_hint: {"y":0.4}
+		gamemodeLbl : modetitlelbl
+		turnLbl : turnlbl
+		player1Lbl : player1lbl
+		player2Lbl : player2lbl
+		turnLay : turnlay
 		Image:
 			source : 'Images/board.png'
 			size_hint: (1,1)
+		Label:
+			id: modetitlelbl
+			text: "Mode Title"
+			font_size: 50
+			pos_hint: {"y":0.45}
+		Label:
+			id: turnlbl
+			text: "X Turn"
+			font_size: 30
+			pos_hint: {"y":0.38}
 		Button:
 			id: _0
 			background_color: (0,0,0,0)
@@ -146,6 +154,50 @@
 			pos_hint:{"x":0.42}
 			font_size: 40
 			text: '0'
+		Label:
+			id: player1lbl
+			font_size: 30
+			pos_hint : {"y" : -0.25}
+			color: (0,0,0,0.7)
+		Label:
+			id: player2lbl
+			font_size: 30
+			pos_hint : {"y" : 0.25}
+			color: (0,0,0,0.7)
+		FloatLayout:
+			size: 500,500
+			id: turnlay
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 0.5
+				Rectangle:
+					pos: 100,50
+            		size: 600,500
+			Button:
+				id: chooseplyr1btn
+				pos: 125,90
+				size: 550,150
+				text: "Bot"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: CongklakDisplay.set_first_turn(0)
+
+			Button:
+				id: chooseplyr2btn
+				pos: 125,280
+				size: 550,150
+				text: "Player"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: CongklakDisplay.set_first_turn(1)
+			Label:
+				pos: 0, 200
+				font_size: 50
+				color: (0,0,0,1)
+				text: "Who plays first?"
+
 	Image:
 		id : backimg
 		source : 'Images/wood5.jpg'
@@ -182,7 +234,9 @@
 			size_hint: (0.5,0.5)
 			font_size : 20
 			background_color : (0.8,0.6,0.6,0.8)
-			on_press : CongklakDisplay.start("MvP")
+			on_press : 
+				CongklakDisplay.init("MvP")
+				CongklakDisplay.start()
 		Button:
 			id: RvPbtn
 			pos_hint: {'x': 0.25}
@@ -190,7 +244,9 @@
 			size_hint: (0.5,0.5)
 			font_size : 20
 			background_color : (0.8,0.6,0.6,0.8)
-			on_press : CongklakDisplay.start("RvP")
+			on_press : 
+				CongklakDisplay.init("RvP")
+				CongklakDisplay.start()
 		Button:
 			id: MvRbtn
 			pos_hint: {'x': 0.25}
@@ -198,6 +254,8 @@
 			size_hint: (0.5,0.5)
 			font_size : 20
 			background_color : (0.8,0.6,0.6,0.8)
-			on_press : CongklakDisplay.start("MvR")
+			on_press : 
+				CongklakDisplay.init("MvR")
+				CongklakDisplay.start()
 
                 

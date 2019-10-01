@@ -7,24 +7,30 @@ from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 import board as b
+import move as m
 
 class MyCongklakDisplay(FloatLayout):
     Board = b.Board()
     mode = ""
+    turn = 0
 
-    def start(self, _mode):
+    def init(self, _mode):
         self.remove_start_screen()
-
         self.mode = _mode
+
+    def start(self):
+        _text = ""
+
         if (self.mode == "MvP"):
-            _text = ("Bot Minimax vs Player")
+            _text = "Bot Minimax vs Player"
         elif (self.mode == "RvP"):
-            _text = ("Bot Random vs Player")
+            _text = "Bot Random vs Player"
         else: #self.mode=="MvR"
-            _text = ("Bot Minimax vs Bot Random")
+            _text = "Bot Minimax vs Bot Random"
         
-        self.boardLay.modeLbl.text = _text
+        self.boardLay.gamemodeLbl.text = _text
         self.draw_board()
+        self.set_info_lbl()
     
     def remove_start_screen(self):
         self.remove_widget(self.startLay)
@@ -36,17 +42,51 @@ class MyCongklakDisplay(FloatLayout):
             self.set_hole_lbl(i, hole)
             i += 1
 
-    def set_hole_lbl(self, hole_id, number):
-        self.ids.get(self.get_lbl_id(hole_id)).text = str(number)
+    def set_info_lbl(self):
+        player1 = ""
+        player2 = ""
 
-    def get_lbl_id(self, hole_id):       
-        return "_" + str(hole_id)
+        if ((self.mode == "MvP") or (self.mode == "RvP")):
+            player1 = "Player"
+            player2 = "Bot"
+        else:
+            player1 = "Minimax Bot"
+            player2 = "Random Bot"
+
+        self.boardLay.player1Lbl.text = player1
+        self.boardLay.player2Lbl.text = player2
+        
+        self.ids.get("chooseplyr1btn").text = player1
+        self.ids.get("chooseplyr2btn").text = player2
+
+    def set_hole_lbl(self, hole_id, number):
+        self.ids.get("_" + str(hole_id)).text = str(number)
+
+    def set_turn_lbl(self, _turn):
+        _text = ""
+
+        if (_turn == m.SOUTH_TURN):
+            if (self.mode == 'MvP' or self.mode == 'RvP'):
+                _text = "Player"
+            else:
+                _text = "Bot Minimax"
+        else: #NORTH_TURN
+            if (self.mode == 'MvP' or self.mode == 'RvP'):
+                _text = "Bot"
+            else:
+                _text = "Bot Random"
+
+        self.boardLay.turnLbl.text = _text +  " Turn"
+
+    def set_first_turn(self, _turn):
+        self.boardLay.remove_widget(self.boardLay.turnLay)
+        self.set_turn_lbl(_turn)
 
     def player_move(self, hole_id):
-        print(hole_id)
-    
-    def test(self):
-        print("AA")
+        if ((self.mode == "MvP") or (self.mode == "RvP")):
+            if (hole_id < 7):
+                self.Board, turn = m.move(self.Board, m.SOUTH_TURN, hole_id)
+        self.draw_board()
 
 class CongklakApp(App):
     def build(self):
