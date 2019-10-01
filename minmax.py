@@ -1,53 +1,76 @@
-import board
-import move 
+import board as b
+import move as mv
 
-def evaluation(before, after, turn):
-    if (turn):
-        return after.getSouthStoreHouse()-after.getSouthStoreHouse()
+def evaluation(state, my_turn):
+    if (my_turn==mv.SOUTH_TURN):
+        return state.getSouthStoreHouse()-state.getNorthStoreHouse()
     else:
-        return after.getNorthStoreHouse()-before.getNorthStoreHouse()
+        return state.getNorthStoreHouse()-state.getSouthStoreHouse()
 
-def maximum(board, depth):
+def maximum(state, depth, my_turn, alpha, beta, is_prune):
     print("maksimum")
-    arr = []
-    for i in range (0, 7):
-        if board.board[i]!=0:
-            print(i)
-            new_board, next_turn = move.move(board, move.SOUTH_TURN, i)
-            new_board.printBoard()
-            if (depth==0):
-                print("masuk sini1")
-                arr.append(evaluation(board,new_board, 0))
-            else:
-                print("masuk sini3")
-                print()
-                print()
-                arr.append(minimax(new_board, next_turn, depth-1))
-    return max(arr)
-
-def minimum(board, depth):
-    arr = []
-    for i in range (8, 15):
-        if board.board[i]!=0:
-            new_board, next_turn =  move.move(board, move.NORTH_TURN, i)
-            if (depth==0):
-                arr.append(evaluation(board,new_board, 1))
-            # if (board[i]==0):
-            #     return arr.append(0)
-            else:
-                arr.append(minimax(new_board, next_turn, depth-1))
-    return min(arr)
-
-
-def minimax(board, myTurn, depth):
-    if (myTurn==move.SOUTH_TURN):
-        print("my turn")
-        maximum(board, depth)
+    if my_turn == mv.SOUTH_TURN:
+        init = 0
     else:
-        print("opposite turn")
-        minimum(board, depth)
+        init = 8
+    max_value = -999
+    for i in range (init, init+7):
+        new_state, next_turn = mv.move(state, my_turn, i)
+        new_state.printBoard()
+        score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, my_turn)
+        max_value = max(max_value, score)
+        alpha = max(alpha, score)
+        if is_prune and beta <= alpha:
+            break
+    return max_value
 
-my_board = board.Board()
-steps = print(minimax(my_board, move.SOUTH_TURN, 1))
-my_board, a = move.move(my_board, move.SOUTH_TURN, 1)
-my_board.printBoard()
+def minimum(state, depth, my_turn, alpha, beta, is_prune):
+    print("minimum")
+    if mv.nextTurn(my_turn) == mv.SOUTH_TURN:
+        init = 0
+    else:
+        init = 8
+
+    min_value = 999
+    for i in range (init, init+7):
+        new_state, next_turn =  mv.move(state, mv.nextTurn(my_turn), i)
+        new_state.printBoard()
+        score = minimax(new_state, next_turn, depth-1, my_turn, alpha, beta, mv.nextTurn(my_turn))
+        min_value = min(min_value, score)
+        beta = min(beta, min_value)
+        if is_prune and beta <= alpha:
+            break
+    return min_value
+
+def minimax(state, current_turn, depth, my_turn, alpha, beta, parent_turn):
+    if depth == 0:
+        return evaluation(state, current_turn)
+
+    if (current_turn==my_turn):
+        return maximum(state, depth, my_turn, alpha, beta, parent_turn != current_turn)
+    else:
+        return minimum(state, depth, my_turn, alpha, beta, parent_turn != current_turn)
+
+def best_move (state, turn, depth):
+    score = []
+    if turn == mv.SOUTH_TURN:
+        init = 0
+    else:
+        init = 8
+    for i in range (init, init+7):
+        print("****", i)
+        next_state, next_turn = mv.move(state, turn, i)
+        score.append(minimax(next_state, next_turn, depth-1, turn, -999, 999, turn))
+    if (turn == mv.SOUTH_TURN):    
+        return score.index(max(score))
+    else:    
+        return score.index(min(score))+8
+
+
+my_board = b.Board()
+my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 0)
+my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 1)
+my_board, nextTurn = mv.move(my_board, mv.SOUTH_TURN, 3)
+depth = 5
+steps = best_move(my_board, mv.SOUTH_TURN, depth)
+print(steps)

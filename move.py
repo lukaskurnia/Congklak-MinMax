@@ -1,7 +1,8 @@
 import board as b
+import copy
 
-NORTH_TURN = 1
-SOUTH_TURN = 0
+NORTH_TURN = 1 #atas
+SOUTH_TURN = 0 #bawah
 
 #Tembak shell
 def shoot(Board,currentIndex,turn):
@@ -13,9 +14,10 @@ def shoot(Board,currentIndex,turn):
     # print(Board.printBoard())
 
 #Mengembalikan state board setelah move dan giliran siapa setelah move dieksekusi
-def move(Board,turn,index):
+def move(First_Board,turn,index):
+    Board = copy.deepcopy(First_Board)
     if(legalMove(Board,turn,index)):
-        loop = False;
+        loop = False
         currentIndex = index
         if(turn == SOUTH_TURN):
             remainingStep = Board.getShell(index)
@@ -75,8 +77,14 @@ def move(Board,turn,index):
 
         return Board,turn
     else:
-        print("Illegal move")
+        return Board, nextTurn(turn)
 
+
+def nextTurn(turn):
+    if turn == SOUTH_TURN:
+        return NORTH_TURN
+    else:
+        return SOUTH_TURN
 
 #Kondisi menang
 def winCondition (Board):
