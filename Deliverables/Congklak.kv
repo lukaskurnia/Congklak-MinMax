@@ -1,0 +1,302 @@
+#:import MyCongklakDisplay display.MyCongklakDisplay
+
+<MyCongklakDisplay>:
+	id: CongklakDisplay
+	boardLay : boardlay
+	startLay : startlay
+	backImg : backimg
+	orientation: 'horizontal'
+	Image:
+		id : tinyImg
+		source : 'Images/wood5.jpg'
+		allow_stretch : True
+	FloatLayout:
+		id : boardlay
+		gamemodeLbl : modetitlelbl
+		turnLbl : turnlbl
+		player1Lbl : player1lbl
+		player2Lbl : player2lbl
+		turnLay : turnlay
+		diffLay : difflay
+		diffImg : diffimg
+		Image:
+			source : 'Images/board.png'
+			size_hint: (1,1)
+		Label:
+			id: modetitlelbl
+			text: "Mode Title"
+			font_size: 50
+			pos_hint: {"y":0.45}
+		Label:
+			id: turnlbl
+			text: "X Turn"
+			font_size: 30
+			pos_hint: {"y":0.38}
+		Button:
+			id: _0
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.78, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(0)
+		Button:
+			id: _1
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.68, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(1)
+		Button:
+			id: _2
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.58, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(2)
+		Button:
+			id: _3
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.48, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(3)
+		Button:
+			id: _4
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.38, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(4)
+		Button:
+			id: _5
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.28, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(5)
+		Button:
+			id: _6
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.18, "y":0.32}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(6)
+
+		Label:
+			id: _7
+			pos_hint:{"x":-0.42}
+			font_size: 40
+			text: '0'
+			
+		Button:
+			id: _14
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.78, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(14)
+		Button:
+			id: _13
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.68, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(13)
+		Button:
+			id: _12
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.58, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(12)
+		Button:
+			id: _11
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.48, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(11)
+		Button:
+			id: _10
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.38, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(10)
+		Button:
+			id: _9
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.28, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(9)
+		Button:
+			id: _8
+			background_color: (0,0,0,0)
+			font_size: 40
+			pos_hint:{"x":0.18, "y":0.62}
+			size: (40,40)
+			size_hint: None, None
+			on_press: CongklakDisplay.player_1_move(8)
+		Label:
+			id: _15
+			pos_hint:{"x":0.42}
+			font_size: 40
+			text: '0'
+		Label:
+			id: player1lbl
+			font_size: 30
+			pos_hint : {"y" : -0.25}
+			color: (0,0,0,0.7)
+		Label:
+			id: player2lbl
+			font_size: 30
+			pos_hint : {"y" : 0.25}
+			color: (0,0,0,0.7)
+		FloatLayout:
+			size: 500,500
+			id: turnlay
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 0.5
+				Rectangle:
+					pos: 100,50
+            		size: 600,500
+			Button:
+				id: chooseplyr1btn
+				pos: 125,90
+				size: 550,150
+				text: "Bot"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: CongklakDisplay.set_first_turn(0)
+			Button:
+				id: chooseplyr2btn
+				pos: 125,280
+				size: 550,150
+				text: "Player"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: CongklakDisplay.set_first_turn(1)
+			Label:
+				pos: 0, 200
+				font_size: 50
+				color: (0,0,0,1)
+				text: "Who plays first?"
+
+		Image:
+			id : diffimg
+			source : 'Images/wood5.jpg'
+			allow_stretch : True
+		FloatLayout:
+			id: difflay
+			canvas.before:
+				Color:
+					rgba: 1, 1, 1, 0.5
+				Rectangle:
+					pos: 100,50
+            		size: 600,500
+			Button:
+				id: easybtn
+				pos: 125,90
+				size: 550,150
+				text: "Hard"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: 
+					CongklakDisplay.set_difficulty(6)
+					CongklakDisplay.remove_difficulty_lay()
+			Button:
+				id: hardbtn
+				pos: 125,280
+				size: 550,150
+				text: "Easy"
+				font_size: "40"
+				background_color: (0,0,0,0.95)
+				size_hint: None, None
+				on_press: 
+					CongklakDisplay.set_difficulty(1)
+					CongklakDisplay.remove_difficulty_lay()
+			Label:
+				pos: 0, 200
+				font_size: 50
+				color: (0,0,0,1)
+				text: "Minimax Bot Difficulty"
+
+	Image:
+		id : backimg
+		source : 'Images/wood5.jpg'
+		allow_stretch : True
+	BoxLayout:
+		id: startlay
+		titleLbl : title
+		mvpBtn : MvPbtn
+		rvpBtn : RvPbtn
+		mvrBtn : MvRbtn
+		modeLbl : modelbl
+		orientation :'vertical'
+		background_color: (1,1,1,1)
+		padding: 10
+        spacing: 10
+		Label:
+			id : title
+			text : '[b]Congklak[/b]'
+			font_size : 50
+			markup : True
+			size_hint: (1, 0.75)
+			pos_hint: {'x': 0}
+		Label:
+			id : modelbl
+			text : 'Select mode to play:'
+			font_size : 20
+			markup : True
+			size_hint: (1, 0.25)
+			pos_hint: {'x': 0}
+		Button:
+			id: MvPbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Minimax vs Player"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : 
+				CongklakDisplay.init("MvP")
+				CongklakDisplay.start()
+		Button:
+			id: RvPbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Random vs Player"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : 
+				CongklakDisplay.init("RvP")
+				CongklakDisplay.start()
+		Button:
+			id: MvRbtn
+			pos_hint: {'x': 0.25}
+			text: "Bot Minimax vs Random"
+			size_hint: (0.5,0.5)
+			font_size : 20
+			background_color : (0.8,0.6,0.6,0.8)
+			on_press : 
+				CongklakDisplay.init("MvR")
+				CongklakDisplay.start()
+
+                
