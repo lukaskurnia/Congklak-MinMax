@@ -7,6 +7,4 @@ Congklak game using Minimax Algorithm
 Install kivy untuk GUI
 
 ### Run
-'''
-python3 main.py
-'''
+`python3 main.py`
